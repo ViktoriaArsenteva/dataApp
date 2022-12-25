@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class GUI {
     public static void GUI() {
         JFrame frame = new JFrame("User information");
@@ -7,15 +9,9 @@ public class GUI {
         frame.setSize(500, 500);
         // Создание панели меню и добавление компонентов
         JMenuBar mb = new JMenuBar();
-        JMenu m1 = new JMenu("FILE");
         JMenu m2 = new JMenu("Help");
-        mb.add(m1);
         mb.add(m2);
-        JMenuItem m11 = new JMenuItem("Открыть");
-        JMenuItem m12 = new JMenuItem("Сохранить как");
         JMenuItem m21 = new JMenuItem("Помощь");
-        m1.add(m11);
-        m1.add(m12);
         m2.add(m21);
  
         // Создание панели внизу и добавление компонентов
@@ -66,23 +62,80 @@ public class GUI {
         JButton send = new JButton("Отправить");
         send.setSize(10,10);
         JButton reset = new JButton("Сброс");
+
+        JLabel checkName = new JLabel("  ❌");
+        JLabel checkSurName = new JLabel("  ❌");
+        JLabel checkPatr = new JLabel("  ❌");
+        JLabel checkBirth = new JLabel("  ❌");
+        JLabel checkNumber = new JLabel("  ❌");
+        JLabel checkGender = new JLabel("  ❌");
+
         panel.add(labelName); 
         panel.add(tfName);
+        panel.add(checkName);
+
         panel.add(labelSurName);
         panel.add(tfSurName);
+        panel.add(checkSurName);
+
         panel.add(labelPatr);
         panel.add(tfPatr);
+        panel.add(checkPatr);
+
         panel.add(labelBitrh);
         panel.add(Birth);
+        panel.add(checkBirth);
+
         panel.add(labelNumber);
         panel.add(tfNumber);
+        panel.add(checkNumber);
+
         panel.add(labelGender);
         panel.add(Gender);
+        panel.add(checkGender);
+
         panel.add(send);
         panel.add(reset);
+       
+
+        send.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // TODO реализовать вывод ошибки или сообщения успешного окончания программы
+                }
+            
+        });
+        tfName.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String name = tfName.getText();
+            }
+            
+        });
+        tfSurName.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String surName = tfSurName.getText();
+            }
+            
+        });
+        tfPatr.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String patr = tfPatr.getText();
+            }
+            
+        });
+        tfNumber.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String number = tfNumber.getText();
+            }
+            
+        });
         
         
-        GridLayout layout = new GridLayout(7, 2, 0, 10);
+        GridLayout layout = new GridLayout(7, 3, 0, 10);
         panel.setLayout(layout);
         frame.getContentPane().add(panel);
         frame.getContentPane().add(BorderLayout.NORTH, mb);
@@ -94,5 +147,5 @@ public class GUI {
     
     }
 
-    
+          
 }
