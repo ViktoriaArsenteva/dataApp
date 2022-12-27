@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 public class GUI {
     public static void GUI() {
         JFrame frame = new JFrame("User information");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
+        frame.setSize(1000, 500);
         // Создание панели меню и добавление компонентов
         JMenuBar mb = new JMenuBar();
         JMenu m2 = new JMenu("Help");
@@ -109,6 +110,19 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String name = tfName.getText();
+                boolean check = name.matches("[a-zA-Zа-яА-Я]*$");
+                try {
+                    if (check == true){
+                        String userName = name.substring(0,1).toUpperCase()+ name.substring(1).toLowerCase();
+                        writer.write(userName,1);
+                        checkName.setText("  ✅");
+                    }
+                    else{
+                        checkName.setText("  ❌ (Имя не может содержать цифры и символы)");
+                    }
+                }catch(StringIndexOutOfBoundsException e){
+                    checkName.setText("  ❌ (Введите свое имя)");
+                }
             }
             
         });
@@ -116,6 +130,19 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String surName = tfSurName.getText();
+                boolean check = surName.matches("[a-zA-Zа-яА-Я]*$");
+                try {
+                    if (check == true){
+                        String userSurName = surName.substring(0,1).toUpperCase()+ surName.substring(1).toLowerCase();
+                        writer.write(userSurName,2);
+                        checkSurName.setText("  ✅");
+                    }
+                    else{
+                        checkSurName.setText("  ❌ (Фамилия не может содержать цифры и символы)");
+                    }
+                }catch(StringIndexOutOfBoundsException e){
+                    checkSurName.setText("  ❌ (Введите свою фамилию)");
+                }
             }
             
         });
@@ -123,6 +150,19 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String patr = tfPatr.getText();
+                boolean check = patr.matches("[a-zA-Zа-яА-Я]*$");
+                try {
+                    if (check == true){
+                        String userPatr = patr.substring(0,1).toUpperCase()+ patr.substring(1).toLowerCase();
+                        writer.write(userPatr,3);
+                        checkPatr.setText("  ✅");
+                    }
+                    else{
+                        checkPatr.setText("  ❌ (Отчество не может содержать цифры и символы)");
+                    }
+                }catch(StringIndexOutOfBoundsException e){
+                    checkPatr.setText("  ❌ (Введите свое Отчество)");
+                }
             }
             
         });
@@ -130,9 +170,20 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String number = tfNumber.getText();
+                try {
+                    int num = Integer.parseInt(number);
+                    checkNumber.setText("  ✅");
+                    writer.write(number,6);
+                } catch (Exception e) {
+                    checkNumber.setText("  ❌ (Номер может состоять только из цифр");
+                    
+                }
             }
             
         });
+        
+        
+        
         
         
         GridLayout layout = new GridLayout(7, 3, 0, 10);
@@ -146,6 +197,7 @@ public class GUI {
         frame.setVisible(true);
     
     }
+    
 
           
 }
