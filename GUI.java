@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
+
+
 public class GUI {
     public static void GUI() {
         JFrame frame = new JFrame("User information");
@@ -23,45 +24,21 @@ public class GUI {
         JLabel labelSurName = new JLabel("Фамилия");
         JTextField tfSurName = new JTextField(20);
 
-        JLabel labelPatr = new JLabel("Отчество(при наличии)");
+        JLabel labelPatr = new JLabel("Отчество");
         JTextField tfPatr = new JTextField(20);
 
         JLabel labelBitrh = new JLabel("Дата рождения");
-        JMenuBar Birth = new JMenuBar();
-        JMenu date = new JMenu("Date"); 
-        JMenu month = new JMenu("Month"); 
-        JMenu year = new JMenu("Year"); 
-        for(int i = 1; i<=31;i++){
-            JMenuItem dates = new JMenuItem(Integer.toString(i));
-            date.add(dates);
-        }
-        for(int i = 1; i<=12;i++){
-            JMenuItem months = new JMenuItem(Integer.toString(i));
-            month.add(months);
-        }
-        for(int i = 1930; i<=2023;i++){
-            JMenuItem years = new JMenuItem(Integer.toString(i));
-            year.add(years);
-        }
-        Birth.add(date);
-        Birth.add(month);
-        Birth.add(year);
+        JTextField tfBirth = new JTextField(2);
+        
 
         JLabel labelNumber = new JLabel("Номер телефона");
         JTextField tfNumber = new JTextField(11);
 
         JLabel labelGender = new JLabel("Пол");
-        JMenuBar Gender = new JMenuBar();
-        JMenu Genders = new JMenu("Gender");
-        JMenuItem male = new JMenuItem("m");
-        Genders.add(male);
-        JMenuItem female = new JMenuItem("f");
-        Genders.add(female);
-        Gender.add(Genders);
-
+        String [] genders = new String []{"male","female"};
+        JComboBox Gender = new JComboBox(genders);
 
         JButton send = new JButton("Отправить");
-        send.setSize(10,10);
         JButton reset = new JButton("Сброс");
 
         JLabel checkName = new JLabel("  ❌");
@@ -70,6 +47,7 @@ public class GUI {
         JLabel checkBirth = new JLabel("  ❌");
         JLabel checkNumber = new JLabel("  ❌");
         JLabel checkGender = new JLabel("  ❌");
+        JLabel checkSend = new JLabel("");
 
         panel.add(labelName); 
         panel.add(tfName);
@@ -84,7 +62,7 @@ public class GUI {
         panel.add(checkPatr);
 
         panel.add(labelBitrh);
-        panel.add(Birth);
+        panel.add(tfBirth);
         panel.add(checkBirth);
 
         panel.add(labelNumber);
@@ -97,14 +75,34 @@ public class GUI {
 
         panel.add(send);
         panel.add(reset);
+        panel.add(checkSend);
+
+        
        
 
         send.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // TODO реализовать вывод ошибки или сообщения успешного окончания программы
+                if ((checkName.getText() == "  ✅") && 
+                    (checkSurName.getText() == "  ✅") && 
+                    (checkPatr.getText() == "  ✅")&& 
+                    (checkBirth.getText() == "  ✅")&& 
+                    (checkNumber.getText() == "  ✅")&& 
+                    (checkGender.getText() == "  ✅"))
+                {
+                    checkSend.setText("Данные успешно сохранены");
+                }
+                else {checkSend.setText("Проверьте корректность введенных данных");
+            }
                 }
             
+        });
+
+        reset.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent){
+                // TODO метод сброса данных
+            }
         });
         tfName.addActionListener(new ActionListener(){
             @Override
@@ -115,7 +113,7 @@ public class GUI {
                     if (check == true){
                         String userName = name.substring(0,1).toUpperCase()+ name.substring(1).toLowerCase();
                         writer.write(userName,1);
-                        checkName.setText("  ✅");
+                        checkName.setText("  ");
                     }
                     else{
                         checkName.setText("  ❌ (Имя не может содержать цифры и символы)");
@@ -166,6 +164,13 @@ public class GUI {
             }
             
         });
+        tfNumber.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                // TODO алгоритм проверки формата даты
+            }
+        });
+
         tfNumber.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
