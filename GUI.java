@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 public class GUI {
@@ -27,12 +29,12 @@ public class GUI {
         JLabel labelPatr = new JLabel("Отчество");
         JTextField tfPatr = new JTextField(20);
 
-        JLabel labelBitrh = new JLabel("Дата рождения");
+        JLabel labelBitrh = new JLabel("Дата рождения(dd-MM-yyyy)");
         JTextField tfBirth = new JTextField(2);
         
 
         JLabel labelNumber = new JLabel("Номер телефона");
-        JTextField tfNumber = new JTextField(11);
+        JTextField tfNumber = new JTextField(20);
 
         JLabel labelGender = new JLabel("Пол");
         String [] genders = new String []{"male","female"};
@@ -113,7 +115,7 @@ public class GUI {
                     if (check == true){
                         String userName = name.substring(0,1).toUpperCase()+ name.substring(1).toLowerCase();
                         writer.write(userName,1);
-                        checkName.setText("  ");
+                        checkName.setText("  ✅");
                     }
                     else{
                         checkName.setText("  ❌ (Имя не может содержать цифры и символы)");
@@ -164,11 +166,26 @@ public class GUI {
             }
             
         });
-        tfNumber.addActionListener(new ActionListener(){
+        tfBirth.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // TODO алгоритм проверки формата даты
+                Date date;
+                try {
+                    date  = new SimpleDateFormat("dd-MM-yyyy").parse(tfBirth.getText());
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    String format = formatter.format(date);
+                    checkBirth.setText("  ✅");
+                    System.out.println(format);
+                    String[] birth = format.split("-");
+                    writer.write(birth[0], 3);
+                    writer.write(birth[1], 4);
+                    writer.write(birth[2], 5);
+                } catch (Exception e) {
+                    checkBirth.setText("  ❌ (Введите дату формата dd-MM-yyyy)");
+                    e.printStackTrace();
+                    
             }
+        }
         });
 
         tfNumber.addActionListener(new ActionListener(){
@@ -176,16 +193,30 @@ public class GUI {
             public void actionPerformed(ActionEvent actionEvent) {
                 String number = tfNumber.getText();
                 try {
-                    int num = Integer.parseInt(number);
+                    Long num = Long.parseLong(number);
                     checkNumber.setText("  ✅");
                     writer.write(number,6);
                 } catch (Exception e) {
                     checkNumber.setText("  ❌ (Номер может состоять только из цифр");
+                    e.printStackTrace();
                     
                 }
             }
             
         });
+        Gender.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                checkGender.setText("  ✅");
+                String gendr = (String) Gender.getSelectedItem();
+                writer.write(gendr, 7);
+                System.out.println(gendr);
+
+            }
+            
+        });
+
+        
         
         
         
