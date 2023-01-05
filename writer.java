@@ -13,23 +13,8 @@ public class writer {
         File file = new File(fileName);
         try {
             file.createNewFile();
-            try(FileWriter writer = new FileWriter(file, true))
+            try(FileWriter writer = new FileWriter(file,true ))
         {
-           for (int i = 0;i < Data.length; i++){
-            writer.write(Data[i]);
-            writer.write("  ");
-           }
-             
-            writer.flush();
-        }
-        catch(IOException ex){
-             
-            System.out.println(ex.getMessage());
-        } 
-        } catch (Exception ex) {
-
-            try(FileWriter writer = new FileWriter(file, true))
-        {   
             writer.write("\n");
            for (int i = 0;i < Data.length; i++){
             writer.write(Data[i]);
@@ -38,10 +23,13 @@ public class writer {
              
             writer.flush();
         }
-        catch(IOException e){
+        catch(Exception ex){
              
-            System.out.println(e.getMessage());
+            System.out.println(ex.getMessage());
         } 
+        } catch (Exception ex) {
+
+            
         }
     } 
     public void WriteData() {
