@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -51,13 +52,13 @@ public class GUI {
         JLabel checkGender = new JLabel("  ❌");
         JLabel checkSend = new JLabel("");
 
-        panel.add(labelName); 
-        panel.add(tfName);
-        panel.add(checkName);
-
         panel.add(labelSurName);
         panel.add(tfSurName);
         panel.add(checkSurName);
+
+        panel.add(labelName); 
+        panel.add(tfName);
+        panel.add(checkName);
 
         panel.add(labelPatr);
         panel.add(tfPatr);
@@ -80,11 +81,11 @@ public class GUI {
         panel.add(checkSend);
 
         
-       
+       writer writer = new writer();
 
         send.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(ActionEvent actionEvent){
                 if ((checkName.getText() == "  ✅") && 
                     (checkSurName.getText() == "  ✅") && 
                     (checkPatr.getText() == "  ✅")&& 
@@ -93,6 +94,12 @@ public class GUI {
                     (checkGender.getText() == "  ✅"))
                 {
                     checkSend.setText("Данные успешно сохранены");
+                    try {
+                        writer.CreateFile();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
                 else {checkSend.setText("Проверьте корректность введенных данных");
             }
@@ -134,7 +141,7 @@ public class GUI {
                 try {
                     if (check == true){
                         String userSurName = surName.substring(0,1).toUpperCase()+ surName.substring(1).toLowerCase();
-                        writer.write(userSurName,2);
+                        writer.write(userSurName,0);
                         checkSurName.setText("  ✅");
                     }
                     else{
@@ -154,7 +161,7 @@ public class GUI {
                 try {
                     if (check == true){
                         String userPatr = patr.substring(0,1).toUpperCase()+ patr.substring(1).toLowerCase();
-                        writer.write(userPatr,3);
+                        writer.write(userPatr,2);
                         checkPatr.setText("  ✅");
                     }
                     else{
@@ -176,13 +183,11 @@ public class GUI {
                     String format = formatter.format(date);
                     checkBirth.setText("  ✅");
                     System.out.println(format);
-                    String[] birth = format.split("-");
-                    writer.write(birth[0], 3);
-                    writer.write(birth[1], 4);
-                    writer.write(birth[2], 5);
+                    String[] Birth = format.split("-");
+                    String birth = Birth[0]+ "." +Birth[1]+ "." +Birth[2];
+                    writer.write(birth, 3);
                 } catch (Exception e) {
                     checkBirth.setText("  ❌ (Введите дату формата dd-MM-yyyy)");
-                    e.printStackTrace();
                     
             }
         }
@@ -195,10 +200,9 @@ public class GUI {
                 try {
                     Long num = Long.parseLong(number);
                     checkNumber.setText("  ✅");
-                    writer.write(number,6);
+                    writer.write(number,4);
                 } catch (Exception e) {
                     checkNumber.setText("  ❌ (Номер может состоять только из цифр");
-                    e.printStackTrace();
                     
                 }
             }
@@ -209,8 +213,10 @@ public class GUI {
             public void actionPerformed(ActionEvent actionEvent) {
                 checkGender.setText("  ✅");
                 String gendr = (String) Gender.getSelectedItem();
-                writer.write(gendr, 7);
-                System.out.println(gendr);
+                String gendr1;
+                if (gendr == "male"){gendr1 = "m";}
+                else{gendr1 = "f";}
+                writer.write(gendr1, 5);
 
             }
             
@@ -231,7 +237,13 @@ public class GUI {
  
         
         frame.setVisible(true);
+
     
+    }
+
+    public static void name() throws IOException {
+        writer writer = new writer();
+        writer.CreateFile();
     }
     
 
