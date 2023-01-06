@@ -8,33 +8,49 @@ public class writer {
     Data[num] = data;
     }
 
-    public void CreateFile() throws IOException {
+    public void CreateTXTFile() throws IOException {
         String fileName = Data[0]+".txt";
         File file = new File(fileName);
         try {
             file.createNewFile();
             try(FileWriter writer = new FileWriter(file,true ))
-        {
-            writer.write("\n");
-           for (int i = 0;i < Data.length; i++){
-            writer.write(Data[i]);
-            writer.write("  ");
+        {       
+                Boolean checkFile = isFileEmpty(file);
+                String [] names = new String[]{"Фамилия","Имя","Отчество","Дата рождения","Номер телефона","Пол"};
+                if (checkFile == true)
+                {
+                    for (int i = 0;i < names.length; i++)
+                    {
+                        writer.write(names[i]);
+                        for (int j = names[i].length();j<=17;j++)
+                        {
+                            writer.write(" ");
+                        }
+                    }
+                }
+                writer.write("\n");
+                for (int i = 0;i < Data.length; i++){
+                    writer.write(Data[i]);
+                    for (int j = Data[i].length();j<=17;j++)
+                    {
+                        writer.write(" ");
+                    }
            }
-             
-            writer.flush();
+                writer.flush();
+                
         }
-        catch(Exception ex){
+            catch(Exception ex){
              
-            System.out.println(ex.getMessage());
+                System.out.println(ex.getMessage());
         } 
         } catch (Exception ex) {
-
+            System.out.println(ex.getMessage());
             
         }
     } 
-    public void WriteData() {
-        
-    }
     
+    public boolean isFileEmpty(File file) {
+        return file.length() == 0;
+    }
 
 }

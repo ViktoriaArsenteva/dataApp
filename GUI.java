@@ -95,7 +95,7 @@ public class GUI {
                 {
                     checkSend.setText("Данные успешно сохранены");
                     try {
-                        writer.CreateFile();
+                        writer.CreateTXTFile();
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -243,7 +243,7 @@ public class GUI {
 
     public static void name() throws IOException {
         writer writer = new writer();
-        writer.CreateFile();
+        writer.CreateTXTFile();
     }
     
 
