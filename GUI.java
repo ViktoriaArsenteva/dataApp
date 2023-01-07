@@ -42,7 +42,6 @@ public class GUI {
         JComboBox Gender = new JComboBox(genders);
 
         JButton send = new JButton("Отправить");
-        JButton reset = new JButton("Сброс");
 
         JLabel checkName = new JLabel("  ❌");
         JLabel checkSurName = new JLabel("  ❌");
@@ -77,7 +76,6 @@ public class GUI {
         panel.add(checkGender);
 
         panel.add(send);
-        panel.add(reset);
         panel.add(checkSend);
 
         
@@ -101,18 +99,15 @@ public class GUI {
                         e.printStackTrace();
                     }
                 }
-                else {checkSend.setText("Проверьте корректность введенных данных");
-            }
+                else 
+                {
+                    checkSend.setText("Проверьте корректность введенных данных");
+                }
                 }
             
         });
 
-        reset.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent actionEvent){
-                // TODO метод сброса данных
-            }
-        });
+        
         tfName.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
